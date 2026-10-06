@@ -1,0 +1,30 @@
+# How the report is shaped for each reader.
+#
+# The audience the caller asks for selects one bundle: a token ceiling, an
+# ordered section list, and a tone descriptor. Adding a reader is a change here
+# and nowhere else.
+
+executive:
+  length_tokens_max: 350
+  sections:
+    - headline
+    - top_movers
+    - board_action
+  tone: concise_board_brief
+
+operations:
+  length_tokens_max: 900
+  sections:
+    - delta_table
+    - exception_top3
+    - root_cause
+    - action_items
+  tone: operational_detail
+
+customer:
+  length_tokens_max: 500
+  sections:
+    - sla_summary
+    - deviation_context
+    - remediation
+  tone: client_facing_polite

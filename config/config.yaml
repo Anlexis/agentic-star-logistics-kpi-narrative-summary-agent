@@ -1,0 +1,40 @@
+# Runtime parameters — loaded by AgentRegistry and passed to the graph
+# constructor; the standalone HTTP entry point loads the same file the same way.
+# Separate from config/agent.yaml, which carries identity and compile-time
+# requirements only.
+
+max_retry: 3
+timeout_s: 30
+
+# Model settings, applied when an API key is provisioned. Without one the agent
+# composes the report deterministically and these values are unused.
+llm:
+  model: gpt-4o
+  max_tokens: 1024
+  temperature: 0.2
+
+# The KPI fields a report is expected to carry. The input validator requires all
+# of them to be present; the generator computes one comparison per field.
+# Operators override this list per deployment.
+kpi_fields:
+  - otd_pct
+  - exception_rate
+  - cost_per_kg
+  - warehouse_utilization_pct
+  - damage_rate
+
+# Side-car configuration files, relative to the repository root.
+kpi_thresholds_path: config/kpi-thresholds.yaml
+audience_formats_path: config/audience-formats.yaml
+narrative_prompt_path: prompts/narrative.md
+
+# The advisory phrase every released report must carry. The output validator
+# verifies it and appends it when the generated text omits it.
+output_disclaimer: "for internal reporting purposes"
+
+security:
+  classification: MEDIUM
+  pii_fields: []
+  driver_ref_hash: true
+  # The output gate is mandatory. Setting this false raises at construction.
+  s3_gate_enabled: true

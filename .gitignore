@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.installed.cfg
+*.egg
+.venv/
+venv/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Env
+.env
+*.env.local
+.context/
+
+# Centrally distributed reference files. They are placed here locally at
+# initialisation time for convenience and must never be committed.
+CLAUDE.md
+security_rules/
+ci_stubs/
+MANIFEST.md
+
+# Tooling caches
+.ruff_cache/
+.mypy_cache/

@@ -1,0 +1,32 @@
+# Agent Manifest — AgentRegistry entry point
+# AgentRegistry reads every key below at ROOT level — do NOT nest keys under an
+# `agent:` block. Runtime parameters live in config/config.yaml, which the
+# registry loads separately and passes to the graph constructor.
+id: "LOG-C2-018"
+name: "LogisticsKPINarrativeSummaryAgent"
+namespace: "log"
+version: "0.1.1"
+enabled: true
+category: "Cat 2"
+# A language model is called whenever one is configured, so the generation
+# contract is not deterministic. The agent still produces a full report without
+# one, but that is a degraded path, not the declared mode.
+generation_mode: "llm"  # deterministic | llm
+industry: "LOG"
+
+# Opaque compatibility metadata — the conversational pattern this agent follows.
+# Not an inheritance selector: the graph inherits the framework base class directly.
+base_type: "ChatAgent"
+
+# Entry point — single dotted import path (module.Class), NOT split module:/class:.
+class: "src.graph.graph.LogisticsKPINarrativeSummaryAgent"
+
+required_trust_level: "VERIFIED_EXTERNAL"
+
+# Compile-time gates — declare every required secret and every constructed extra.
+# The model API key and the anonymisation salt are read with get(), not require():
+# a deployment without either is supported (no model, or driver references
+# dropped), so declaring them here would make the agent fail to load instead.
+requires:
+  secrets: []
+  extras: ["openai"]

@@ -1,0 +1,41 @@
+# How each KPI's movement is interpreted.
+#
+# Direction is the reason this file exists: a falling cost per kilogram is an
+# improvement, a falling on-time delivery rate is not, and a comparison that
+# does not know the difference reports one of them backwards.
+#
+# Per KPI:
+#   direction: "higher_is_better" | "lower_is_better"
+#   warning_delta:  number  (sign written to match the bad direction; only the
+#                            magnitude is compared)
+#   critical_delta: number  (larger magnitude than warning_delta)
+#
+# Resulting severity:
+#   normal    — unchanged, or moved in the good direction
+#   warning   — moved at least |warning_delta| in the bad direction
+#   critical  — moved at least |critical_delta| in the bad direction
+
+otd_pct:
+  direction: higher_is_better
+  warning_delta: -0.05      # OTD% dropped 5pp → warning
+  critical_delta: -0.10     # OTD% dropped 10pp → critical
+
+exception_rate:
+  direction: lower_is_better
+  warning_delta: 0.02       # exception rate rose 2pp → warning
+  critical_delta: 0.05      # exception rate rose 5pp → critical
+
+cost_per_kg:
+  direction: lower_is_better
+  warning_delta: 0.10       # cost rose 10% → warning
+  critical_delta: 0.20      # cost rose 20% → critical
+
+warehouse_utilization_pct:
+  direction: higher_is_better
+  warning_delta: -0.05
+  critical_delta: -0.10
+
+damage_rate:
+  direction: lower_is_better
+  warning_delta: 0.005      # damage rate rose 0.5pp → warning
+  critical_delta: 0.01      # damage rate rose 1pp → critical
